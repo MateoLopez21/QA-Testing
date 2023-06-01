@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.4.34")
+    }
+}
+
+group 'co.com.arbusta.certification'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    testImplementation "net.serenity-bdd:serenity-core:3.7.1"
+    testImplementation "net.serenity-bdd:serenity-junit:3.7.1"
+    implementation "net.serenity-bdd:serenity-screenplay:3.7.1"
+    implementation "net.serenity-bdd:serenity-screenplay-webdriver:3.7.1"
+    implementation "net.serenity-bdd:serenity-cucumber:3.7.1"
+    implementation "net.serenity-bdd:serenity-ensure:3.7.1"
+   // https://mvnrepository.com/artifact/net.serenity-bdd/serenity-reports
+	implementation 'net.serenity-bdd:serenity-reports:3.7.1'
+    //testImplementation "net.serenity-bdd:serenity-reports:3.7.1"
+
+    testImplementation "junit:junit:4.13.2"
+}
+
+tasks.withType(Test){
+    systemProperties = System.properties as Map<String, ?>
+    maxParallelForks = Runtime.runtime.availableProcessors()
+}
+
+gradle.startParameter.continueOnFailure = true
